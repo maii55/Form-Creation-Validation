@@ -1,16 +1,10 @@
+```javascript
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('registration-form');
     const feedbackDiv = document.getElementById('form-feedback');
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        // Retrieve and trim input values
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-
-        // Initialize validation variables
+    // Validation function
+    function validateForm(username, email, password) {
         let isValid = true;
         const messages = [];
 
@@ -32,6 +26,20 @@ document.addEventListener('DOMContentLoaded', () => {
             messages.push('Password must be at least 8 characters long.');
         }
 
+        return { isValid, messages };
+    }
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        // Retrieve and trim input values
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        // Call validation function
+        const { isValid, messages } = validateForm(username, email, password);
+
         // Display feedback
         feedbackDiv.style.display = 'block';
         if (isValid) {
@@ -43,3 +51,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+```
